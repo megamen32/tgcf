@@ -51,9 +51,14 @@ async def forward_job() -> None:
                 if isinstance(message, MessageService):
                     continue
                 try:
+                    if message.reactions is None or sum(map(lambda res:res.count,message.reactions.results)) <= 20:
+                        logging.info(f"skipping 0 likes message with id = {last_id}")
+                        continue
                     tm = await apply_plugins(message)
+
                     if not tm:
                         continue
+
                     st.stored[event_uid] = {}
 
                     if message.is_reply:

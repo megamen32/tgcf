@@ -38,6 +38,7 @@ class Style(str, Enum):
     CODE = "code"
     STRIKE = "strike"
     PLAIN = "plain"
+    FORWARD = "forward"
     PRESERVE = "preserve"
 
 
@@ -53,13 +54,13 @@ class Filters(BaseModel):
 
 class Format(BaseModel):
     check: bool = False
-    style: Style = Style.PRESERVE
+    style: Style = Style.FORWARD
 
 
 class MarkConfig(BaseModel):
     check: bool = False
     image: str = "image.png"
-    position: Position = Position.centre
+    position: Position = Position.bottom_right
     frame_rate: int = 15
 
 
