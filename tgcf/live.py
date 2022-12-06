@@ -37,9 +37,6 @@ async def new_message_handler(event: Union[Message, events.NewMessage]) -> None:
             break
 
     dest = config.from_to.get(chat_id)
-    if message.reactions is None or sum(map(lambda res: res.count, message.reactions.results)) <= 20:
-        logging.info(f"skipping 0 likes message with id = {event_uid.msg_id}")
-        return
     tm = await apply_plugins(message)
     if not tm:
         return
