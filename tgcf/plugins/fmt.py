@@ -29,7 +29,7 @@ class TgcfFmt(TgcfPlugin):
 
         author_name=''
         try:
-            author_name = f"@{tm.message.sender.username} "
+            author_name = f"@{tm.message.sender.username} " if tm.message.sender.username else ''
             author_name+=f"{tm.message.sender.first_name or ''} {tm.message.sender.last_name or ''} :"
         except:pass
         def reacount(item:ReactionCount):
@@ -40,5 +40,5 @@ class TgcfFmt(TgcfPlugin):
             reactions ='\n'+ ', '.join(list(map(reacount, tm.message.reactions.results)))
         else:
             reactions = ''
-        tm.text = f"{style}{msg_text}{style}".replace('%author%',author_name,1).replace('%author%', reactions)
+        tm.text = f"{style}{msg_text}{style}".replace('%author%',f'{author_name}\t\t{tm.message.date.strftime("%d/%m/%y %H:%M")}\n',1).replace('%author%', reactions)
         return tm

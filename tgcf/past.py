@@ -51,7 +51,7 @@ async def forward_job() -> None:
                 if isinstance(message, MessageService):
                     continue
                 try:
-                    if message.reactions is None or sum(map(lambda res:res.count,message.reactions.results)) <= 20:
+                    if message.reactions is None or sum(map(lambda res:res.count,message.reactions.results)) <= 40:
                         logging.info(f"skipping 0 likes message with id = {last_id}")
                         continue
                     tm = await apply_plugins(message)
@@ -84,3 +84,6 @@ async def forward_job() -> None:
                     await asyncio.sleep(delay=fwe.seconds)
                 except Exception as err:
                     logging.exception(err)
+if __name__=='__main__':
+    logging.getLogger().setLevel(logging.INFO)
+    asyncio.run(forward_job())
